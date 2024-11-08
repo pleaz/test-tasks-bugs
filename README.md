@@ -2,20 +2,29 @@
 
 The test app is a simple app that allows you to create, read, update, and delete tasks and bugs. For running the app, you need to run the following commands:
 
-for run the app:
-
+install the sail package:
 ```bash
-sail up -d
+composer require laravel/sail --dev
 ```
 
-add to .env file if 80 and 3306 ports are already in use:
+publish the environment file:
+```bash
+cp .env.example .env
+```
+
+add the following variables to the .env file if default ports are already in use:
 
 ```bash 
 APP_PORT=...
 FORWARD_DB_PORT=...
 ```
 
-run the following command to migrate the database:
+for running the app, you need to run the following command:
+```bash
+vendor/bin/sail up -d
+```
+
+for populating the database with the necessary data, you need to run the following command:
 
 ```bash
-sail artisan migrate:fresh --seed
+vendor/bin/sail artisan migrate:fresh --seed
