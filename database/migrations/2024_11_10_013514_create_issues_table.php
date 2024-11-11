@@ -13,7 +13,14 @@ return new class extends Migration
     {
         Schema::create('issues', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('title');
+            $table->text('description');
+            $table->string('reporter');
+            $table->string('tester');
+            $table->string('executor');
+            $table->integer('status');
+            $table->integer('type');
+            $table->softDeletes();
         });
     }
 
@@ -22,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('bugs');
+        Schema::dropIfExists('issues');
     }
 };

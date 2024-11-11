@@ -28,3 +28,12 @@ for populating the database with the necessary data, you need to run the followi
 
 ```bash
 vendor/bin/sail artisan migrate:fresh --seed
+
+```
+
+
+Running the tests:
+
+```bash
+vendor/bin/sail test
+```

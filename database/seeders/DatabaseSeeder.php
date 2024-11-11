@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-// use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Comment;
+use App\Models\Issue;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,11 +13,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $bugs = Issue::factory(5)->create([
+            'type' => Issue::TYPE_BUG,
+        ]);
 
-        /*User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);*/
+        Issue::factory(5)->create([
+            'type' => Issue::TYPE_TASK,
+        ]);
+
+        $comments = Comment::factory(2)->make()->toArray();
+        $bugs->each(function ($bug) use ($comments) {
+            $commentsCreated =$bug->comments()->createMany($comments);
+            $commentsCreated->each(function ($comment) {
+                $comment->comment()->saveMany(Comment::factory(2)->make());
+            });
+        });
+
     }
 }
